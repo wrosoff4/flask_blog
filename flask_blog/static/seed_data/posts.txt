@@ -1,0 +1,6 @@
+1,First!,First post on the blog. Sweet!,1
+2,Drats!,I missed the opportunity to be first. My life is ruined.,2
+3,Nifty,This blog is so nifty. Here are some thoughts. *inset thoughts here*,3
+4,The Game,I lost the game,1
+5,Quiet,"This is a shared space. You need to keep it down. I am faculty. I know best. *foot stomp*",4
+6,Constant Password Prompts,Why does my IDE constantly prompt me for my password for every single pip install?,5
