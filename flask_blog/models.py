@@ -1,6 +1,8 @@
 from datetime import datetime
-from flask_blog import db, login_manager
+
 from flask_login import UserMixin
+
+from flask_blog import db, login_manager
 
 
 @login_manager.user_loader
@@ -32,9 +34,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     # create a 1:M relationship (why is it one to many? you tell me, jk i know)
     # backref is a special type of attribute defined by a relationship
-    # a User posts a Post and becomes the Post's author
-    # lazy describes when sqlalchemy loads the data to the database
-    # IT DOES NOT DESCRIBE ME... it does *sigh*
     posts = db.relationship('Post', backref='author', lazy=True)
     followed = db.relationship(
         'User', secondary=followers,
@@ -60,8 +59,6 @@ class User(db.Model, UserMixin):
 
 
 # create new Model (table/entity) called Posts
-# no comments for this one, see if you can describe each calls purpose (its cuz I'm lazy)
-# but seriously... see if you can
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -72,9 +69,6 @@ class Post(db.Model):
     # NOTE: 'user.id' user is not User
     # the call to 'Post in the relationship in User references the Post class
     # the call 'user.id' is referencing the table_name/column_name NOT the class User
-    # SUMMARY: the relationship() method references the relating Class
-    # this is because relationship() is a method of the Model class, which requires another Model class
-    # the foreignKey() method requires the data from the id field for that user
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     # i spoiled you with comments, you're lucky i think you are nice
@@ -127,33 +121,15 @@ class Post(db.Model):
 # >>> User.query.filter_by(username='ToBeHonest')
 # >>> User.query.filter_by(username='ToBeHonest').all()
 # >>> User.query.filter_by(username='ToBeHonest').first()
-# did you see the difference? did ya? DID YA?
 
-# "why are we querying the 'User' class not the 'user' table (aka the juicy, juicy data)?"
-# REMEMBER PYTHON INHERITANCE
-# 'User' was passed db.Model as a parameter, and this is python's inheritance
-# this makes User a subclass of Model
-# which makes query an inherited attribute, holding an object instance, for the User/Post class
-# which leaves filter_by to be the class method being called
-# this is why the class name is being used instead of the data table's name
-
-# IN TERMINAL:
 # >>> user = User.query.filter_by(username='ToBeHonest').first()
 # >>> user
-# YES! a familiar python class instance is returned, we know that class, lets get a class attribute
 # >>> user.id
-# easy stuff, 131, 231 stuff
 # lets find a user with a specific id
 # >>> user = User.query.get(2)
 # >>> user
 # coding is so much fun, just look at how far we've come, way back to only seeing a lame "Hello World"
-
-# "HEY! didnt we make a relationship?"
-# yep! lets check it.
 # >>> user.posts
-# "I thought relationship() was a method, why arent we calling a method?"
-# it is, but it was saved as an attribute
-
 
 # --------------------------------------------------------------------------------------------------
 # Lets add some posts!
@@ -180,11 +156,9 @@ class Post(db.Model):
 # >>> post.author
 
 # ----------------------------------------------------------------------------------------------------
-# LETS F*CKIN DESTROY THIS DATABASE
 # >>> db.drop_all()
 # >> User.query.all()
 #  wow... oops, probably shouldn't have done that
 # >>> db.create_all()
 # >>> User.query.all()
 # back to a fresh db w empty tables
-#
