@@ -1,20 +1,23 @@
 import os
 import secrets
+
 from PIL import Image
 from flask import render_template, flash, redirect, url_for, request, abort
+from flask_login import login_user, current_user, logout_user, login_required
+
 from flask_blog import app, db, bcrypt
+from flask_blog.config import base_dir
 from flask_blog.forms import \
     RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flask_blog.models import User, Post
-from flask_blog.config import base_dir
-from flask_login import login_user, current_user, logout_user, login_required
 
 
 # home page (something.domain/; something.domain/home)
 @app.route("/")
 @app.route("/home")
 def home_page():
-    posts = Post.query.all()
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=2)
     return render_template("home.html", posts=posts)
 
 
