@@ -4,6 +4,7 @@ import secrets
 from PIL import Image
 from flask import render_template, flash, redirect, url_for, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
+from sqlalchemy import desc
 
 from flask_blog import app, db, bcrypt
 from flask_blog.config import base_dir
@@ -17,7 +18,8 @@ from flask_blog.models import User, Post
 @app.route("/home")
 def home_page():
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=2)
+    posts = Post.query.order_by(desc(Post.date_posted)) \
+        .paginate(page=page, per_page=2)
     return render_template("home.html", posts=posts)
 
 
@@ -26,7 +28,7 @@ def user_posts(username):
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query \
-        .filter_by(author=user).order_by(Post.date_posted.desc()) \
+        .filter_by(author=user).order_by(desc(Post.date_posted)) \
         .paginate(page=page, per_page=2)
     return render_template("user_posts.html", posts=posts, user=user)
 
