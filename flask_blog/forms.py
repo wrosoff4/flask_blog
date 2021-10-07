@@ -1,9 +1,10 @@
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from flask_login import current_user
 from wtforms import \
     StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+
 from flask_blog.models import User
 
 
@@ -67,3 +68,23 @@ class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Publish Post')
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField('email',
+                        validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, email):  # noqa
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('No account associate with that email. Try creating an account')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('password',
+                             validators=[DataRequired(), Length(min=6)])
+    confirm_password = PasswordField('confirm password',
+                                     validators=[DataRequired(),
+                                                 EqualTo('password')])
+    submit = SubmitField('Reset Password')
