@@ -4,9 +4,9 @@
         <form method="post" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-{#                mb-4, margin border of 4#}
+                {#                mb-4, margin border of 4#}
                 <legend class="border-bottom mb-4"> {{ legend }} </legend>
-{#              EMAIL#}
+                {#              EMAIL#}
                 <div class="form-group">
                     {{ form.title.label(class="form-control-label") }}
                     {% if form.title.errors %}
@@ -21,7 +21,7 @@
                         {{ form.title(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-{#              PASSWORD#}
+                {#              PASSWORD#}
                 <div class="form-group">
                     {{ form.content.label(class="form-control-label") }}
                     {% if form.content.errors %}

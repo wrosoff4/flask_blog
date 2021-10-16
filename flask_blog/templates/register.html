@@ -4,9 +4,9 @@
         <form method="post" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-{#                mb-4, margin border of 4#}
+                {#                mb-4, margin border of 4#}
                 <legend class="border-bottom mb-4">Join Today</legend>
-{#              USERNAME#}
+                {#              USERNAME#}
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
 
@@ -22,7 +22,7 @@
                         {{ form.username(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-{#              EMAIL#}
+                {#              EMAIL#}
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
@@ -37,7 +37,7 @@
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-{#              PASSWORD#}
+                {#              PASSWORD#}
                 <div class="form-group">
                     {{ form.password.label(class="form-control-label") }}
                     {% if form.password.errors %}
@@ -52,7 +52,7 @@
                         {{ form.password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-{#              CONFIRM PASSWORD#}
+                {#              CONFIRM PASSWORD#}
                 <div class="form-group">
                     {{ form.confirm_password.label(class="form-control-label") }}
                     {% if form.confirm_password.errors %}
