@@ -23,4 +23,10 @@ login_manager.login_view = 'login_page'
 login_manager.login_message_category = 'info'
 
 # import the routes
-from flask_blog import routes, models  # noqa E402 : tell IDE/system to ignore PEP8
+from flask_blog.users.routes import users  # noqa
+from flask_blog.posts.routes import posts  # noqa
+from flask_blog.main.routes import main  # noqa
+
+app.register_blueprint(users)
+app.register_blueprint(posts)
+app.register_blueprint(main)

@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     # create new column(field) in User table called id, set metadata to integer, assign primary key
     id = db.Column(db.Integer, primary_key=True)
     # create new column(field) called username, metadata to string
-    # max column(field) length 20 (from validators in forms.py)
+    # max column(field) length 20
     # must be unique, cannot be null (not optional)
     username = db.Column(db.String(20), unique=True, nullable=False)
     # create new column(field) called email, string metadata, max length 120, must be unique, not null

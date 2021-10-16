@@ -57,15 +57,15 @@
             {{ form.submit(class="btn btn-outline-info") }}
         </div>
     </form>
-{#    pt-3; padding top of 3#}
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Already have an account?
-            <a class="ml-2" href="{{ url_for('login_page') }}">
-                Sign in
-            </a>
-{#           ml-2; margin lef of 2#}
-        </small>
+        {#    pt-3; padding top of 3#}
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already have an account?
+                <a class="ml-2" href="{{ url_for('users.login_page') }}">
+                    Sign in
+                </a>
+                {#           ml-2; margin lef of 2#}
+            </small>
+        </div>
     </div>
-</div>
 {% endblock content %}

@@ -73,14 +73,14 @@
             </div>
         </form>
     </div>
-{#    pt-3; padding top of 3#}
+    {#    pt-3; padding top of 3#}
     <div class="border-top pt-3">
         <small class="text-muted">
             Already have an account?
-            <a class="ml-2" href="{{ url_for('login_page') }}">
+            <a class="ml-2" href="{{ url_for('users.login_page') }}">
                 Sign in
             </a>
-{#           ml-2; margin lef of 2#}
+            {#           ml-2; margin lef of 2#}
         </small>
     </div>
 {% endblock content %}

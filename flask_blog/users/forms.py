@@ -1,9 +1,10 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
+from flask_wtf.file import FileAllowed, FileField
 from wtforms import \
-    StringField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+    BooleanField, PasswordField, StringField, SubmitField
+from wtforms.validators import \
+    DataRequired, Email, EqualTo, Length, ValidationError
 
 from flask_blog.models import User
 
@@ -62,12 +63,6 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('An account with that email has already been registered.')
-
-
-class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
-    submit = SubmitField('Publish Post')
 
 
 class RequestResetForm(FlaskForm):
